@@ -5,23 +5,34 @@ use Livewire\Component;
 
 class MealLogger extends Component
 {
-    public $description;
-    public $mealType;
-    public $calories;
+    public $prompt = '';
+    public $description = '';
+    public $ingredients = [];
+    public $calories = 0;
+    public $carbohydrates = 0;
+    public $remark = '';
 
-    public function submit()
+    // Ensure this method is public
+    public function fetchMealData()
     {
         $this->validate([
-            'description' => 'required|string|max:255',
-            'mealType' => 'required|string',
-            'calories' => 'required|numeric',
+            'prompt' => 'required|string|max:500',
         ]);
 
-        // Store the meal log (database integration to be added later)
-        session()->flash('message', 'Meal logged successfully!');
+        // Simulated response
+        $response = [
+            'description' => 'Grilled Chicken Salad',
+            'ingredients' => ['Grilled Chicken', 'Lettuce', 'Tomatoes', 'Cucumber', 'Dressing'],
+            'calories' => 350,
+            'carbohydrates' => 15,
+            'remark' => 'A healthy choice for your day!',
+        ];
 
-        // Clear the form fields
-        $this->reset(['description', 'mealType', 'calories']);
+        $this->description = $response['description'];
+        $this->ingredients = $response['ingredients'];
+        $this->calories = $response['calories'];
+        $this->carbohydrates = $response['carbohydrates'];
+        $this->remark = $response['remark'];
     }
 
     public function render()
